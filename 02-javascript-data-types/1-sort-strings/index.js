@@ -8,7 +8,6 @@ export function sortStrings(arr, param = 'asc') {
     switch(param) {
         case 'asc':
             return sortingArr(arr, 1);
-            break;
         case 'desc':
             return sortingArr(arr, -1);
         default:
