@@ -16,7 +16,7 @@ export function sortStrings(arr, param = 'asc') {
 
     function sortingArr(array, order) {
         return [...array].sort((str1, str2) => {
-            return order * str1.localeCompare(str2, 'default', {caseFirst: 'upper'});
+            return order * str1.localeCompare(str2, ['ru', 'en'], {sensitivity: 'variant', caseFirst: 'upper'});
         });
     }
 }
