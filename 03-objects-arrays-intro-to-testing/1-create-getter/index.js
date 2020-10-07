@@ -11,8 +11,8 @@ export function createGetter(path) {
     };
 
     function iterate(obj, pathArr) {
-        for (var property in obj) {
-            if (obj.hasOwnProperty(property)) {
+        for (const property in obj) {
+            if ( obj.hasOwnProperty(property) ) {
                 if (typeof obj[property] === "object") {
                     return iterate(obj[property], pathArr);
                 } else {
