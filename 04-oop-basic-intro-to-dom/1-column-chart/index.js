@@ -40,13 +40,16 @@ export default class ColumnChart {
             this.element.classList.remove("column-chart_loading");
         }
 
-        //this.innerElements = this.getInnerElements(this.element);
+        this.innerElements = this.getInnerElements(this.element);
     }
 
     getInnerElements(element) {
-        const elements = element.querySelectorAll('[data-element]');
+        const elements = element.querySelectorAll('div[data-element]');
 
-        // right now dont know how dynamically update elements
+        return [...elements].reduce((accumulator, innerElement) => {
+            accumulator[innerElement.dataset.element] = innerElement;
+            return accumulator;
+        }, {});
     }
 
     getLink() {
@@ -54,7 +57,7 @@ export default class ColumnChart {
     }
 
     getTemplateBody(data) {
-        const maxVal = Math.max(...data);
+        const maxVal = Math.max.apply(null, data);
 
         return data.map(item => {
             const scale = this.chartHeight / maxVal;
@@ -65,8 +68,16 @@ export default class ColumnChart {
         }).join('');
     }
 
-    update( {headerData, bodyData} ) {
-        this.innerElements.header.textContent = headerData;
+    update( bodyData ) {
         this.innerElements.body.innerHTML = this.getTemplateBody(bodyData);
+    }
+
+    remove() {
+        this.element.remove();
+    }
+
+    destroy() {
+        this.remove();
+        this.innerElements = {};
     }
 }
